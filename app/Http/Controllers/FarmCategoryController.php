@@ -2,21 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\UserCats; // Import the UserCats model
+use App\Models\FarmCategory; // Use the new FarmCategory model
 use Illuminate\Http\Request;
 
-class UserCatController extends Controller
+class FarmCategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        // Fetch all cats from the database, ordered by the latest.
-        $cats = UserCats::latest()->get();
+        $categories = FarmCategory::latest()->get();
         return response()->json([
             'status' => 'success',
-            'data' => $cats
+            'data' => $categories
         ]);
     }
 
@@ -25,20 +24,20 @@ class UserCatController extends Controller
      */
     public function store(Request $request)
     {
-        // Validate the request
+        // Debug line removed. Ready for normal operation.
+
         $request->validate([
             'cat_name' => 'required|string|max:255',
         ]);
 
-        // Create a new cat using the UserCats model
-        $cat = UserCats::create([
+        $category = FarmCategory::create([
             'cat_name' => $request->cat_name,
         ]);
 
         return response()->json([
             'status' => 'success',
-            'message' => 'Cat created successfully.',
-            'data' => $cat
+            'message' => 'Category created successfully.',
+            'data' => $category
         ], 201);
     }
 
@@ -47,12 +46,10 @@ class UserCatController extends Controller
      */
     public function show(string $id)
     {
-        // Find the cat by its ID from the database
-        $cat = UserCats::findOrFail($id);
-
+        $category = FarmCategory::findOrFail($id);
         return response()->json([
             'status' => 'success',
-            'data' => $cat
+            'data' => $category
         ]);
     }
 
@@ -61,20 +58,19 @@ class UserCatController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        // Validate the request
         $request->validate([
             'cat_name' => 'sometimes|required|string|max:255',
         ]);
 
-        $cat = UserCats::findOrFail($id);
-        $cat->update([
+        $category = FarmCategory::findOrFail($id);
+        $category->update([
             'cat_name' => $request->cat_name,
         ]);
 
         return response()->json([
             'status' => 'success',
-            'message' => 'Cat updated successfully.',
-            'data' => $cat
+            'message' => 'Category updated successfully.',
+            'data' => $category
         ]);
     }
 
@@ -83,12 +79,12 @@ class UserCatController extends Controller
      */
     public function destroy(string $id)
     {
-        $cat = UserCats::findOrFail($id);
-        $cat->delete(); // This will perform a soft delete
+        $category = FarmCategory::findOrFail($id);
+        $category->delete();
 
         return response()->json([
             'status' => 'success',
-            'message' => 'Cat deleted successfully.'
+            'message' => 'Category deleted successfully.'
         ], 200);
     }
 }

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class UserCats extends Model
+class FarmCategory extends Model
 {
     use HasFactory, SoftDeletes;
 
@@ -15,7 +15,7 @@ class UserCats extends Model
      *
      * @var string
      */
-    protected $table = 'farm_category';
+    protected $table = 'farm_category'; // Explicitly tell the model to use the 'farm_category' table
 
     /**
      * The attributes that are mass assignable.

@@ -4,18 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class UserCats extends Model
+class IotDevice extends Model
 {
     use HasFactory, SoftDeletes;
-
-    /**
-     * The table associated with the model.
-     *
-     * @var string
-     */
-    protected $table = 'farm_category';
 
     /**
      * The attributes that are mass assignable.
@@ -23,6 +17,18 @@ class UserCats extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'cat_name',
+        'uuid',
+        'farm_id',
+        'description',
+        'status',
+        'unit',
     ];
+
+    /**
+     * Get the farm that owns the IoT device.
+     */
+    public function farm(): BelongsTo
+    {
+        return $this->belongsTo(Farm::class);
+    }
 }

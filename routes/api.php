@@ -2,7 +2,9 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserCatController;
+use App\Http\Controllers\FarmCategoryController;
+use App\Http\Controllers\FarmController; 
+use App\Http\Controllers\IotDeviceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -10,24 +12,20 @@ use App\Http\Controllers\UserCatController;
 |--------------------------------------------------------------------------
 |
 | Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
+| routes are loaded by the RouteServiceProvider and all of them will
+| be assigned to the "api" middleware group. Make something great!
 |
 */
 
-// Routes in this group require authentication
-Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/user', function (Request $request) {
-        return $request->user();
-    });
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
 });
 
-// This route is now public and does not require authentication
-Route::resource('/user-cats', UserCatController::class);
+// Route for the FarmCategory resource
+Route::apiResource('farm-categories', FarmCategoryController::class);
 
+// Route for the new Farm resource
+Route::apiResource('farms', FarmController::class);
 
-Route::get("/params", function (Request $request) {
-    return response()->json( $request->all() );
- });
-
- 
+// Route for the new IotDevice resource
+Route::apiResource('iot-devices', IotDeviceController::class);
