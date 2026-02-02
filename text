@@ -1,0 +1,4 @@
+composer install
+cp .env.example .env ต้องเอาไฟล.envตัวหลักไปใส่ก่อนละ เปลี่ยนฐานข้อมูลด้วยคนนั้นๆ
+php artisan key:generate
+และ JWT_SECRET=
